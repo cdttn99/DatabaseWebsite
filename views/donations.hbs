@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Metadate -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Donations</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Link to stylesheet -->
+        <link rel="stylesheet" href="./main.css">
+        <link rel="manifest" href="/site.webmanifest">
+        <script src="/js/main.js"></script>
+    </head>
+        <body>
+            <!-- Header to pages -->
+            <header>
+                <h1>Charity Database Website</h1>
+                    <h2>Donations</h2>
+            </header>
+            <!-- Navigation -->
+            <nav class="global"> 
+                <a href="/">Home</a>
+                <a href="/people">Our People</a>
+                <a href="/events">Events</a>
+                <a href="/venues">Venues</a>
+                <a href="/donations">Donations</a>
+                <a href="/assignments">Volunteer Assignments</a>
+            </nav>
+            <main>
+                <div id="newButton">
+                <button onclick="toggleForm()">Create New</button>
+                </div>
+                <!-- Create Donation Form -->
+                <div id="formContainer">
+                    <h2>Add a Donation</h2>
+                    <form id="add-donations-form" method="POST" action="/add-donations-form">
+                        <p><em>*</em> = Required</p>
+                        <div> 
+                        <label for="donorDropdown" class="required">Donor:</label>
+                        <div>
+                        <select id="donorDropdown" name="donor">
+                            <option value="">Select Donor</option>
+                            {{#each donor}}
+                                <option value="{{this.peopleID}}">{{this.fullName}}</option>
+                            {{/each}}
+                        </select>
+                        </div>
+
+                        <div>  
+                        <label for="eventDropdown" class="required">Venue:</label>
+                        </div>
+                        <select id="eventDropdown" name="event">
+                            <option value="">Select Event</option>
+                            {{#each event}}
+                                <option value="{{this.eventID}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                        </div>
+                        <label id="label1" class="required" for="money">Amount:</label>
+                        <input type="number" id="money" name="money" min="1" step="any">
+                
+                        <button id="submit" type="submit">Submit</button>
+                    </form>
+                    <button id="close" onclick="toggleForm1()">Close</button>
+                </div>
+                <!-- View Donations Table -->
+                <div id="viewTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Donation ID</th>
+                            <th>Donor</th>
+                            <th>Event</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                     <tbody>
+                        {{#each data}}
+                        <tr data-value="{{this.donationID}}">
+                            <td>{{this.donationID}}</td>
+                            <td>{{this.donor}}</td>
+                            <td>{{this.eventName}}</td>
+                            <td>{{this.amount}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                </div>
+            </main>
+            <!-- Footer -->
+            <footer>Volunteer USA &copy 2024</footer>
+        </body>
+</html>

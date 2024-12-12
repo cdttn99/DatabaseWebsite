@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Metadata and reources -->
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Volunteers</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Link to style sheet -->
+        <link rel="stylesheet" href="./main.css">
+        <link rel="manifest" href="/site.webmanifest">
+        <script src="./js/main.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    </head>
+        <body>
+            <!-- Page Header -->
+            <Header>
+                <h1>Charity Database Website</h1>
+                    <h2>Our People</h2>
+            </Header>
+            <!-- Navigation Menu -->
+
+            <nav class="global"> 
+                <a href="/">Home</a>
+                <a href="/people">Our People</a>
+                <a href="/events">Events</a>
+                <a href="/venues">Venues</a>
+                <a href="/donations">Donations</a>
+                <a href="/assignments">Volunteer Assignments</a>
+            </nav>
+            <main>
+                <!-- Button to display the create person form -->
+                <div id="newButton">
+                <button onclick="toggleForm()">Create New</button>
+                </div>
+                <!-- Form for adding a new person -->
+
+                <div id="formContainer">
+                    <h2>Add a Person</h2>
+                    <form id="add-person-form" method="POST" action="/add-person-form">
+                    <p><em>*</em> = Required</p>
+                    <label class="required" for="fName">First Name:</label>
+                    <input type="text" id="fName" name="fName" maxlength="45">
+                    
+
+                    <label class="required" for="lName">Last Name:</label>
+                    <input type="text" id="lName" name="lName" maxlength="45" required>
+            
+                    <label for="address1">Address 1:</label>
+                    <input type="text" id="address1" name="address1" maxlength="145" >
+            
+                    <label for="address2">Address 2:</label>
+                    <input type="text" id="address2" name="address2"maxlength="145" >
+            
+                    <label class="required" for="city">City:</label>
+                    <input type="text" id="city" name="city" maxlength="45" required>
+            
+                    <label class="required" for="zip">Zip Code:</label>
+                    <input type="text" id="zip" name="zip" maxlength="5" required>
+
+                    <!-- Drop down menu for state -->
+                    <br>
+                    <label id="label1" class="required" for="states">State</label>
+                    <select name="states" id="states">
+                        <option value="">Select a State</option>
+                        <option value="AL">AL</option>
+                        <option value="AK">AK</option>
+                        <option value="AZ">AZ</option>
+                        <option value="AR">AR</option>
+                        <option value="CA">CA</option>
+                        <option value="CO">CO</option>
+                        <option value="CT">CT</option>
+                        <option value="DE">DE</option>
+                        <option value="FL">FL</option>
+                        <option value="GA">GA</option>
+                        <option value="HI">HI</option>
+                        <option value="ID">ID</option>
+                        <option value="IL">IL</option>
+                        <option value="IN">IN</option>
+                        <option value="IA">IA</option>
+                        <option value="KS">KS</option>
+                        <option value="KY">KY</option>
+                        <option value="LA">LA</option>
+                        <option value="ME">ME</option>
+                        <option value="MD">MD</option>
+                        <option value="MA">MA</option>
+                        <option value="MI">MI</option>
+                        <option value="MN">MN</option>
+                        <option value="MS">MS</option>
+                        <option value="MO">MO</option>
+                        <option value="MT">MT</option>
+                        <option value="NE">NE</option>
+                        <option value="NV">NV</option>
+                        <option value="NH">NH</option>
+                        <option value="NJ">NJ</option>
+                        <option value="NM">NM</option>
+                        <option value="NY">NY</option>
+                        <option value="NC">NC</option>
+                        <option value="ND">ND</option>
+                        <option value="OH">OH</option>
+                        <option value="OK">OK</option>
+                        <option value="OR">OR</option>
+                        <option value="PA">PA</option>
+                        <option value="RI">RI</option>
+                        <option value="SC">SC</option>
+                        <option value="SD">SD</option>
+                        <option value="TN">TN</option>
+                        <option value="TX">TX</option>
+                        <option value="UT">UT</option>
+                        <option value="VT">VT</option>
+                        <option value="VA">VA</option>
+                        <option value="WA">WA</option>
+                        <option value="WV">WV</option>
+                        <option value="WI">WI</option>
+                        <option value="WY">WY</option>
+                    </select>
+
+                    <br>
+                    <label id="label" class="required" for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" maxlength= "10"required>
+
+                    <!-- Submit Button on the Form -->
+                    <button id="submit" type="submit">Submit</button>
+                    </form>
+                    <!-- Close Button on the Form -->
+                    <button id="close" onclick="reverseEdit()">Close</button>
+                </div>
+
+                <!-- Edit Form -->
+                <div id="editTable">
+                    <h2>Update Personel Information</h2>
+                    <form id="update-person-form-ajax">
+                    <p><em>*</em> = Required</p>
+                        <input type="hidden" id="mySelect">
+                        <label class="required" for="fName">First Name:</label>
+                        <input type="text" id="fName1" name="fName" maxlength="45"required>
+
+                        <label class="required" for="lName">Last Name:</label>
+                        <input type="text" id="lName1" name="lName" maxlength="45"required>
+                
+                        <label for="address1">Address 1:</label>
+                        <input type="text" id="address11" name="address1" maxlength="145">
+                
+                        <label for="address2">Address 2:</label>
+                        <input type="text" id="address21" name="address2" maxlength="145">
+                
+                        <label class="required" for="city">City:</label>
+                        <input type="text" id="city1" name="city" maxlength="45"required>
+                
+                        <label class="required" for="zip">Zip Code:</label>
+                        <input type="text" id="zip1" name="zip" maxlength="5"required>
+
+                        <!-- Drop down for state -->
+                        <label id="label1" class="required" for="states">State</label>
+                        <select name="states" id="states1">
+                            <option value="">Select a State</option>
+                            <option value="AL">AL</option>
+                            <option value="AK">AK</option>
+                            <option value="AZ">AZ</option>
+                            <option value="AR">AR</option>
+                            <option value="CA">CA</option>
+                            <option value="CO">CO</option>
+                            <option value="CT">CT</option>
+                            <option value="DE">DE</option>
+                            <option value="FL">FL</option>
+                            <option value="GA">GA</option>
+                            <option value="HI">HI</option>
+                            <option value="ID">ID</option>
+                            <option value="IL">IL</option>
+                            <option value="IN">IN</option>
+                            <option value="IA">IA</option>
+                            <option value="KS">KS</option>
+                            <option value="KY">KY</option>
+                            <option value="LA">LA</option>
+                            <option value="ME">ME</option>
+                            <option value="MD">MD</option>
+                            <option value="MA">MA</option>
+                            <option value="MI">MI</option>
+                            <option value="MN">MN</option>
+                            <option value="MS">MS</option>
+                            <option value="MO">MO</option>
+                            <option value="MT">MT</option>
+                            <option value="NE">NE</option>
+                            <option value="NV">NV</option>
+                            <option value="NH">NH</option>
+                            <option value="NJ">NJ</option>
+                            <option value="NM">NM</option>
+                            <option value="NY">NY</option>
+                            <option value="NC">NC</option>
+                            <option value="ND">ND</option>
+                            <option value="OH">OH</option>
+                            <option value="OK">OK</option>
+                            <option value="OR">OR</option>
+                            <option value="PA">PA</option>
+                            <option value="RI">RI</option>
+                            <option value="SC">SC</option>
+                            <option value="SD">SD</option>
+                            <option value="TN">TN</option>
+                            <option value="TX">TX</option>
+                            <option value="UT">UT</option>
+                            <option value="VT">VT</option>
+                            <option value="VA">VA</option>
+                            <option value="WA">WA</option>
+                            <option value="WV">WV</option>
+                            <option value="WI">WI</option>
+                            <option value="WY">WY</option>
+                        </select>
+
+                        <br>
+                        <label id="label" class="required" for="phone">Phone Number:</label>
+                        <input type="tel" id="phone1" name="phone" maxlength="10"required>
+                
+                        <button id="submit" type="submit">Submit</button>
+                    </form>
+                    <!-- Script to handle updates -->
+                    <script src="./js/update_person.js"></script>
+
+                    <button id="close" onclick="reverseEdit()">Close</button>
+                </div>
+                <!-- Display people table -->
+                <div id="viewTable">
+                    <table id= "people-table">
+            <thead>
+                <tr>
+                    <th>People ID</th>
+                    <th>Full Name</th>
+                    <th>Address 1</th>
+                    <th>Address 2</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Phone Number</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Uses handlebars for dynamic generation -->
+                {{#each data}}
+                <tr data-value="{{this.peopleID}}">
+                    <td>{{this.peopleID}}</td>
+                    <td>{{this.fullname}}</td>
+                    <td>{{this.address1}}</td>
+                    <td>{{this.address2}}</td>
+                    <td>{{this.city}}</td>
+                    <td>{{this.state}}</td>
+                    <td>{{this.zipcode}}</td>
+                    <td>{{this.phoneNumber}}</td>
+                    <td><button onclick="toggleEditPerson({{this.peopleID}})">Edit</button></td>
+                    <td><button onclick="deletePerson({{this.peopleID}})">Delete</button></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <!-- Script to handle deleations -->
+        <script src="./js/delete_person.js"></script>
+        
+        
+                </div>
+            </main>
+            <!-- Page footer -->
+            <footer>Volunteer USA &copy 2024</footer>
+        </body>
+</html>

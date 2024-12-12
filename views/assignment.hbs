@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Metadata -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Volunteer Assignment</title> 
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./main.css"> 
+        <link rel="manifest" href="/site.webmanifest">
+        <script src="/js/main.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    </head>
+        <body>
+            <!-- Header for page -->
+            <header>
+                <h1>Charity Database Website</h1>
+                    <h2>Volunteer Assignments</h2>
+            </header>
+            <!-- Navigation -->
+            <nav class="global">
+                <a href="/">Home</a> 
+                <a href="/people">Our People</a>
+                <a href="/events">Events</a>
+                <a href="/venues">Venues</a>
+                <a href="/donations">Donations</a>
+                <a href="/assignments">Volunteer Assignments</a>
+            </nav>
+            <main>
+                <div id="newButton">
+                    <button onclick="toggleForm()">Create New</button>
+                    </div>
+                    <!-- Form to create Assignment -->
+                    <div id="formContainer">
+                        <h2>Create Assignment</h2>
+                        <form id="add-assignment-form" method="POST" action="/add-assignment-form">
+                            <p><em>*</em> = Required</p>
+                            <div>
+                            <div>
+                            <label for="volunteerDropdown" class="required">Volunteer:</label>
+                            </div>  
+                            <select id="volunteerDropdown" name="volunteer">
+                            <option value="">Select Volunteer</option>
+                            {{#each volunteer}}
+                                <option value="{{this.peopleID}}">{{this.fullName}}</option>
+                            {{/each}}
+                            </select>
+                            </div>
+                            
+                            <div> 
+                            <label for="eventDropdown" class="required">Venue:</label>
+                            </div>
+                            <select id="eventDropdown" name="event">
+                            <option value="">Select Event</option>
+                            {{#each event}}
+                                <option value="{{this.eventID}}">{{this.name}}</option>
+                            {{/each}}
+                            </select>
+                
+                            <label id="label1" class="required" for="hours">Hours:</label>
+                            <input type="number" id="hours" name="hours" min="1" step="any">
+                    
+                            <button id="submit" type="submit">Submit</button>
+                        </form>
+                        <button id="close" onclick="reverseEdit()">Close</button>
+                    </div>
+                    <!-- Form to edit assignment -->
+                    <div id="editTable">
+                        <h2>Edit Assignment Details</h2>
+                        <form id="update-assignment-form-ajax">
+                            <p><em>*</em> = Required</p>
+                            <input type="hidden" id="volunteerAssignmentID" name="volunteerAssignmentID">
+                            <label for="volunteerDropdown">Volunteer:</label>
+                            <select id="volunteerDropdown1" name="volunteer">
+                            <option value="">Select Volunteer</option>
+                            {{#each volunteer}}
+                                <option value="{{this.peopleID}}">{{this.fullName}}</option>
+                            {{/each}}
+                            </select>
+                            <div>
+                            <label for="eventDropdown">Venue:</label>
+                            <select id="eventDropdown1" name="event">
+                            <option value="">Select Event</option>
+                            {{#each event}}
+                                <option value="{{this.eventID}}">{{this.name}}</option>
+                            {{/each}}
+                            </select>
+                            </div>
+                            <label id="label1" class="required" for="hours">Hours:</label>
+                            <input type="number" id="hours1" name="hours" min="1" step="any">
+                    
+                            <button id="submit" type="submit">Submit</button>
+                        </form>
+                        <script src="./js/update_assignment.js"></script>
+                        <button id="close" onclick="reverseEdit()">Close</button>
+                    </div>
+                    <!-- View assignments table -->
+                <div id="viewTable">
+                <table id="assignment-table">
+                    <tr>
+                        <th> Volunteer Assignment ID</th>
+                        <th>Volunteer</th>
+                        <th>Event</th>
+                        <th>Hours Worked</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tbody>
+                        {{#each data}}
+                        <tr data-value="{{this.volunteerAssignmentID}}">
+                            <td>{{this.volunteerAssignmentID}}</td>
+                            <td>{{this.volunteer}}</td>
+                            <td>{{this.eventName}}</td>
+                            <td>{{this.hoursGiven}}</td>
+                            <td><button onclick="toggleEditAssignments({{this.volunteerAssignmentID}})">Edit</button></td>
+                            <td><button onclick="deleteAssignment({{this.volunteerAssignmentID}})">Delete</button></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <script src="./js/delete_assignment.js"></script>
+                </div>
+            </main>
+            <!-- Footer -->
+            <footer>Volunteer USA &copy 2024</footer>
+        </body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Metadata -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Events</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Link to stylesheet -->
+        <link rel="stylesheet" href="./main.css">
+        <link rel="manifest" href="/site.webmanifest">
+        <script src="/js/main.js"></script>
+    </head>
+        <body>
+            <!-- Header for page -->
+            <header>
+                <h1>Charity Database Website</h1>
+                    <h2>Events</h2>
+            </header>
+            <!-- Navigation -->
+             <nav class="global">
+                <a href="/">Home</a>
+                <a href="/people">Our People</a>
+                <a href="/events">Events</a>
+                <a href="/venues">Venues</a>
+                <a href="/donations">Donations</a>
+                <a href="/assignments">Volunteer Assignments</a>
+            </nav>
+            <main>
+                <div id="newButton">
+                    <button onclick="toggleForm()">Create New</button>
+                </div>
+                <!-- Create Event Form -->
+                <div id="formContainer">
+                    <h2>Create an Event</h2>
+                    <form id="add-event-form" method="POST" action="/add-event-form">
+                        <p><em>*</em> = Required</p>
+                        <label for="eventName" id="label" class="required">Event Name:</label>
+                        <input type="text" id="eventName" name="eventName" required>
+
+                        <label for="venueDropdown">Venue:</label>
+                        <div>
+                        <select id="venueDropdown" name="venue" class="">
+                            <option value="">No Venue</option>
+                            {{#each venues}}
+                                <option value="{{this.venueID}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                        </div>
+                
+                        <label id="label1" class="required" for="date">Date:</label>
+                        <input type="date" id="date" name="date">
+                
+                        <button id="submit" type="submit">Submit</button>
+                    </form>
+                    <button id="close" onclick="reverseEdit()">Close</button>
+                </div>
+                <!-- Edit Event Form -->
+                <div id="editTable">
+                    <h2>Edit an Event</h2>
+                    <form method="Post" id="update-event-form-ajax">
+                        <p><em>*</em> = Required</p>
+                        <input type="hidden" id="mySelect">
+                        <label for="name" id="label" class="required">Event Name:</label>
+                        <input type="text" id="eventName1" name="eventName" value="" required>
+                
+                        <label id="label1" class="required" for="address1">Venue:</label>
+                        <select id ="Venue1" name="Venue1">
+                            <option value="">No Venue</option>
+                            {{#each venues}}
+                                <option value="{{this.venueID}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                
+                        <label id="label1" class="required" for="date">Date:</label>
+                        <input type="date" id="date1" name="date" value="">
+                
+                        <button id="submit" type="submit">Submit</button>
+                    </form>
+                    <script src="./js/update_event.js"></script>
+
+                    <button id="close" onclick="reverseEdit()">Close</button>
+                </div>
+                <!-- View Event Table -->
+                <div id="viewTable">
+                <table id="event-table">
+                    <thead>
+                        <tr>
+                            <th>Event ID</th>
+                            <th>Event Name</th>
+                            <th>Venue</th>
+                            <th>Date</th>
+                            <th>Total Raised</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each events}}
+                        <tr data-value="{{this.eventID}}">
+                            <td>{{this.eventID}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.venue}}</td>
+                            <td>{{this.fDate}}</td>
+                            <td>{{this.totalRaised}}</td>
+                            <td><button onclick="toggleEditEvent({{this.eventID}})">Edit</button></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                </div>
+            </main>
+            <!-- Footer -->
+            <footer>Volunteer USA &copy 2024</footer>
+        </body>
+</html>
